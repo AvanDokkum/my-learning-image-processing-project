@@ -13,3 +13,9 @@ How can I create a program to organize lots of images on a local drive.
 - [Path&Paths_API](Path&Paths_API.md)
 - [File/Files API](File&Files_API.md)
 - [Stream_API](Stream_API.md)
+
+- [Iterator<>]
+
+
+- [ImageIO_API]
+- 
