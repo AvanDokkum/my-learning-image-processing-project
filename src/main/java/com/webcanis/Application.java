@@ -8,12 +8,14 @@ package com.webcanis;
  *
  * 2: create a new folder for the output images
  *
- * 3: check folder for a GIF/PNG/JPEG (.jpg) file and locate the name(or location) + date data.
- * 3rf: check folder for all .jpg files and put the name(or location) + date data in an array.
+ * 3: read all images in the folder
+ *
+ * 4: Locate the name(or location) + date data and put it in array.
  *
  * : sort the array on dates from oldest to newest.
  *
  * : copy images into the new folder
+ *
  * : images are copied and sorted on dates.
  * */
 
@@ -24,6 +26,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.List;
 
 public class Application {
@@ -42,12 +45,34 @@ public class Application {
         }
 
         //3:
-        List<File> imageFiles = loadImages();
-        for (File image : imageFiles){
-            ImageInputStream imageInputStream = ImageIO.createImageInputStream(image);
-            //close the inputstream to prevent null? - 'ImageInputStream' used without 'try'-with-resources statement
-            //keeeeeep going!
+        List<Path> imageFiles = loadImages();
+
+        //4:
+        int amountOfImages = imageFiles.size();
+        String[] metadata = new String[amountOfImages];
+        for (int i = 0; i < amountOfImages; i++ ){
+            BasicFileAttributes attributes = Files.readAttributes(imageFiles.get(i), BasicFileAttributes.class);
+            System.out.println(attributes);
+            System.out.println("File Name: " + imageFiles.get(i).getFileName());
+            System.out.println("Creation Date: " + attributes.creationTime());
+            System.out.println("Last Modified Date: " + attributes.lastModifiedTime());
         }
+
+
+
+
+//        for (File image : imageFiles){
+//            ImageInputStream imageInputStream = ImageIO.createImageInputStream(image);
+//            imageInputStream.close();
+//            System.out.println(imageInputStream);
+//            //close the inputstream to prevent null? - 'ImageInputStream' used without 'try'-with-resources statement
+//            //keeeeeep going!
+//        }
+
+
+
+
+
 
 //            ImageInputStream image = ImageIO.createImageInputStream(loadImages().get(0));
 //            System.out.println(image);
@@ -86,13 +111,14 @@ public class Application {
 //        }
     }
 
-    private static List<File> loadImages() throws IOException {
+    private static List<Path> loadImages() throws IOException {
         Path sourceFolder = Paths.get("C:\\Users\\Desktop\\IdeaProjects\\my-learning-image-processing-project\\src\\main\\resources\\input_images");
 
-        List<File> imageFiles = Files.list(sourceFolder)
-                .map(Path::toFile)
-                .toList();
         // add try catch?
+        List<Path> imageFiles = Files.list(sourceFolder)
+//                .map(Path::toFile)
+                .toList();
+
 
         System.out.println("images loaded " + imageFiles);
         return imageFiles;
