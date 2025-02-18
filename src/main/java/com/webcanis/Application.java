@@ -10,7 +10,7 @@ package com.webcanis;
  *
  * 3: read all images in the folder
  *
- * 4: Locate the name(or location) + date data and put it in array.
+ * 4: Locate the name(or location) + date data and put it in an object array.
  *
  * : sort the array on dates from oldest to newest.
  *
@@ -56,6 +56,9 @@ public class Application {
             System.out.println("File Name: " + imageFiles.get(i).getFileName());
             System.out.println("Creation Date: " + attributes.creationTime());
             System.out.println("Last Modified Date: " + attributes.lastModifiedTime());
+
+            //todo: create an object from the name and attributes I need, put it in a list and sort it.
+
         }
 
 
