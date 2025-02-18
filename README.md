@@ -16,6 +16,7 @@ How can I create a program to organize lots of images on a local drive.
 - [ImageIO_API]
 - 
 - POJO
+- Date vs LocalDateTime
 - [Record]
 - [Iterator<>]
 - Comparable<>
@@ -24,7 +25,7 @@ How can I create a program to organize lots of images on a local drive.
 - Predicate<> class (same as Consumer<>, Supplier<>, and Function<>?) https://www.youtube.com/shorts/mz8qio7f5lQ
 - 
 - 
-- EXIF data
+- Read EXIF data (libraries like https://exiftool.org/ and https://github.com/drewnoakes/metadata-extractor)
 - Entity vs DTO
 - functional programming
 - pattern matching

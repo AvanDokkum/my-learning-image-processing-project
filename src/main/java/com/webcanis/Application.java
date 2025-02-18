@@ -19,14 +19,18 @@ package com.webcanis;
  * : images are copied and sorted on dates.
  * */
 
-import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageInputStream;
+import com.drew.imaging.ImageMetadataReader;
+import com.drew.metadata.Directory;
+import com.drew.metadata.Metadata;
+import com.drew.metadata.Tag;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Arrays;
 import java.util.List;
 
 public class Application {
@@ -49,69 +53,68 @@ public class Application {
 
         //4:
         int amountOfImages = imageFiles.size();
-        String[] metadata = new String[amountOfImages];
+        String[] imageData = new String[amountOfImages];
+
         for (int i = 0; i < amountOfImages; i++ ){
-            BasicFileAttributes attributes = Files.readAttributes(imageFiles.get(i), BasicFileAttributes.class);
-            System.out.println(attributes);
-            System.out.println("File Name: " + imageFiles.get(i).getFileName());
-            System.out.println("Creation Date: " + attributes.creationTime());
-            System.out.println("Last Modified Date: " + attributes.lastModifiedTime());
+            Path imagePath = imageFiles.get(i);
+            File imageFile = imageFiles.get(i).toFile();
 
+            if (isImageFile(imageFile)) {
+                BasicFileAttributes attributes = Files.readAttributes(imagePath, BasicFileAttributes.class);
+                System.out.println("\n");
+                System.out.println(attributes);
+                System.out.println("File Name: " + imageFiles.get(i).getFileName());
+                System.out.println("Creation Date: " + attributes.creationTime());
+                System.out.println("Last Modified Date: " + attributes.lastModifiedTime());
+                System.out.println("Last Access Time: " + attributes.lastAccessTime());
+                System.out.println("Attribute Size: " + attributes.size());
+//            attributes.fileKey();
+                System.out.println("\n");
+
+                //Apache commons ImageMetadata
+//                try {
+//                    // Read EXIF metadata
+//                    ImageMetadata metadata = Imaging.getMetadata(imageFile);
+//
+//                    // Check if metadata exists
+//                    if (metadata != null) {
+//                        System.out.println("📸 EXIF Metadata:");
+//                        System.out.println(metadata.toString()); // Print all metadata
+//                    } else {
+//                        System.out.println("❌ No EXIF metadata found.");
+//                    }
+//
+//                } catch (IOException | ImageReadException e) {
+//                    System.err.println("Error reading EXIF data: " + e.getMessage());
+//                }
+
+                // DrewMetaDataExtractor
+//                try {
+//                    // Read metadata
+//                    Metadata metadata = ImageMetadataReader.readMetadata(imageFile);
+//
+//                    // Check if metadata exists
+//                    if (metadata != null && metadata.getDirectories().iterator().hasNext()) {
+//                        System.out.println("📸 EXIF Metadata:");
+//
+//                        // Iterate through metadata directories
+//                        for (Directory directory : metadata.getDirectories()) {
+//                            for (Tag tag : directory.getTags()) {
+//                                System.out.println(tag);
+//                            }
+//                        }
+//                    } else {
+//                        System.out.println("❌ No EXIF metadata found.");
+//                    }
+//
+//                } catch (Exception e) {
+//                    System.err.println("Error reading EXIF data: " + e.getMessage());
+//                }
+
+                DrewMetaDataExtractor.Extract(imageFile);
+            }
             //todo: create an object from the name and attributes I need, put it in a list and sort it.
-
         }
-
-
-
-
-//        for (File image : imageFiles){
-//            ImageInputStream imageInputStream = ImageIO.createImageInputStream(image);
-//            imageInputStream.close();
-//            System.out.println(imageInputStream);
-//            //close the inputstream to prevent null? - 'ImageInputStream' used without 'try'-with-resources statement
-//            //keeeeeep going!
-//        }
-
-
-
-
-
-
-//            ImageInputStream image = ImageIO.createImageInputStream(loadImages().get(0));
-//            System.out.println(image);
-
-
-//        File file = new File("C:\\Users\\Desktop\\IdeaProjects\\my-learning-image-processing-project\\src\\main\\resources\\input_images\\fred5.jpg");
-//        Path sourceFolder = Paths.get("C:\\Users\\Desktop\\IdeaProjects\\my-learning-image-processing-project\\src\\main\\resources\\input_images");
-//        try (Stream<Path> files = Files.list(sourceFolder)) {
-//            List<Path> imageList = new ArrayList<>();
-//            files.forEach(file -> imageList.add(file)); // same as imageList::add
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-//        try (ImageInputStream input = ImageIO.createImageInputStream(loadImages())) {
-//            Iterator<ImageReader> readers = ImageIO.getImageReaders(input);
-//
-//            if (!readers.hasNext()) {
-//                throw new IOException("No image readers found for the format");
-//            }
-//
-//            System.out.println(readers.next());
-//            System.out.println(readers.next());
-//            System.out.println(readers.next());
-
-//            reader.setInput(input);
-//
-//            int width = reader.getWidth(0);  // Get image width
-//            int height = reader.getHeight(0); // Get image height
-//
-//            System.out.println("Width: " + width + ", Height: " + height);
-//            reader.dispose();
-
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 
     private static List<Path> loadImages() throws IOException {
@@ -122,8 +125,16 @@ public class Application {
 //                .map(Path::toFile)
                 .toList();
 
-
         System.out.println("images loaded " + imageFiles);
         return imageFiles;
     }
+
+    public static boolean isImageFile(File file) {
+        List<String> imageExtensions = Arrays.asList(".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp");
+        String fileName = file.getName().toLowerCase();
+
+        return imageExtensions.stream().anyMatch(fileName::endsWith);
+    }
+
 }
+
