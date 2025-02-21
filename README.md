@@ -7,6 +7,7 @@ How can I create a program to organize lots of images on a local drive.
 - The copied images should be deduplicated so no double images remain.
 - The original quality of the images should remain after copying. 
 - The program should facilitate local drive backups for long term storage. 
+- check if the input and output images are the same
 - 
 
 ## Topics - "learning topics in this project"
@@ -24,7 +25,7 @@ How can I create a program to organize lots of images on a local drive.
 - Optional<>
 - Predicate<> class (same as Consumer<>, Supplier<>, and Function<>?) https://www.youtube.com/shorts/mz8qio7f5lQ
 - 
-- 
+- Exif data/image metadata
 - Read EXIF data (libraries like https://exiftool.org/ and https://github.com/drewnoakes/metadata-extractor)
 - Entity vs DTO
 - functional programming

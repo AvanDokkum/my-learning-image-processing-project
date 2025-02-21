@@ -36,7 +36,7 @@ import java.util.List;
 public class Application {
     public static void main(String[] args) throws IOException {
         //1:locate the images input folder
-        Path inputPath = Paths.get("C:\\Users\\Desktop\\IdeaProjects\\my-learning-image-processing-project\\src\\main\\resources\\input_images");
+        Path inputPath = Paths.get("C:\\Users\\arjan\\IdeaProjects\\my-learning-image-processing-project\\src\\main\\resources\\input_images");
         String outputFolder = "output_images";
 
         //2:create a new folder for the output images
@@ -118,7 +118,7 @@ public class Application {
     }
 
     private static List<Path> loadImages() throws IOException {
-        Path sourceFolder = Paths.get("C:\\Users\\Desktop\\IdeaProjects\\my-learning-image-processing-project\\src\\main\\resources\\input_images");
+        Path sourceFolder = Paths.get("C:\\Users\\arjan\\IdeaProjects\\my-learning-image-processing-project\\src\\main\\resources\\input_images");
 
         // add try catch?
         List<Path> imageFiles = Files.list(sourceFolder)
