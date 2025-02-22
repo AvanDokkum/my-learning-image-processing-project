@@ -13,15 +13,16 @@ import java.util.stream.Stream;
 
 public class ImageService {
 
-    public static final int IMAGES_AMOUNT = loadImages().size();
+    public int IMAGES_AMOUNT = 0;
 
-    private static Path directoryPath() {
+    public Path directoryPath() {
         return Paths.get("C:\\Users\\arjan\\IdeaProjects\\my-learning-image-processing-project\\src\\main\\resources\\input_images");
     }
 
     public void createOutputFolder() {
         String outputFolder = "output_images";
         Path outputFolderPath = Paths.get(directoryPath() + File.separator + outputFolder);
+        System.out.println(outputFolderPath);
         try {
             Files.createDirectories(outputFolderPath);
             System.out.println("Folder created: " + outputFolderPath);
@@ -30,8 +31,9 @@ public class ImageService {
         }
     }
 
-    public static List<Path> loadImages() {
+    public List<Path> loadFiles() {
         List<Path> imageFiles = new ArrayList<>();  // Initialize to avoid null issues
+
         try (Stream<Path> paths = Files.list(directoryPath())) {
             imageFiles = paths.toList();
         } catch (IOException e) {
@@ -41,15 +43,14 @@ public class ImageService {
         return imageFiles;
     }
 
-    public static boolean isImageFile(File file) {
+    public boolean isImageFile(File file) {
         List<String> imageExtensions = Arrays.asList(".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp");
         String fileName = file.getName().toLowerCase();
         return imageExtensions.stream().anyMatch(fileName::endsWith);
     }
 
     public void readImages() {
-        String[] imageData = new String[IMAGES_AMOUNT];
-        for (Path imagePath : loadImages()) {
+        for (Path imagePath : loadFiles()) {
             File file = imagePath.toFile();
             if (isImageFile(file)) {
                 String fileName = file.getName();
@@ -62,8 +63,8 @@ public class ImageService {
                     System.out.println("Last Access Time: " + attributes.lastAccessTime());
                     System.out.println("Attribute Size: " + attributes.size());
                     System.out.println("\n");
-
                     DrewMetaDataExtractor.Extract(file);
+                    System.out.println("Total amount of images: " + ++IMAGES_AMOUNT);
 
                 } catch (IOException e) {
                     System.out.println("Couldn't read file attributes from: " + fileName);

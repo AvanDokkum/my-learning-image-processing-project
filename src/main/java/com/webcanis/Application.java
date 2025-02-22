@@ -23,10 +23,10 @@ import java.sql.SQLOutput;
 
 public class Application {
     public static void main(String[] args){
-        System.out.println("Amount of images: " + ImageService.IMAGES_AMOUNT);
         ImageService imageService = new ImageService();
-//        imageService.createOutputFolder();
+        imageService.createOutputFolder();
         imageService.readImages();
+
 
 //        //1:locate the images input folder
 //        Path inputPath = Paths.get("C:\\Users\\arjan\\IdeaProjects\\my-learning-image-processing-project\\src\\main\\resources\\input_images");
