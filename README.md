@@ -19,6 +19,7 @@ How can I create a program to organize lots of images on a local drive.
 - POJO
 - Date vs LocalDateTime
 - [Record]
+- Directory
 - [Iterator<>]
 - Comparable<>
 - Generic<>
