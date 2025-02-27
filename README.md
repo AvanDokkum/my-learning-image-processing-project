@@ -25,7 +25,10 @@ How can I create a program to organize lots of images on a local drive.
 - Generic<>
 - Optional<>
 - Predicate<> class (same as Consumer<>, Supplier<>, and Function<>?) https://www.youtube.com/shorts/mz8qio7f5lQ
-- 
+
+- How to design for microservice architecture?
+- Swing GUI + JFileChooser
+
 - Exif data/image metadata
 - Read EXIF data (libraries like https://exiftool.org/ and https://github.com/drewnoakes/metadata-extractor)
 - Entity vs DTO
