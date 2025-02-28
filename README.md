@@ -37,6 +37,14 @@ How can I create a program to organize lots of images on a local drive.
 - what is "lazy loading"? vs not lazy loading?
 - Records cannot be proxied; what does this mean?
 
+Image processing:
+- Why are there .jpg and .jpeg file types?
+- What is lossy vs lossless image processing?
+- What is Y'CbCR vs RGB?
+- What does chrominance subsampling mean?
+- What is discrete cosine transform (dct) and how does it work?
+- What is Huffman coding theory and how is it used?
+
 
 AI explaining concepts:
 The best way to ask is to structure your question like this:
