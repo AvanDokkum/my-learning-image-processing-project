@@ -44,6 +44,7 @@ Image processing:
 - What does chrominance subsampling mean?
 - What is discrete cosine transform (dct) and how does it work?
 - What is Huffman coding theory and how is it used?
+- What is the difference between al image formats?
 
 
 AI explaining concepts:
