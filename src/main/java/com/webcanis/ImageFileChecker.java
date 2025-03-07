@@ -15,7 +15,8 @@ public class ImageFileChecker {
         SVG(".svg"),
         TIFF(".tiff"),
         TIF(".TIF"),
-        AVIF(".avif")
+        AVIF(".avif"),
+        ICON(".ico")
         ;
 
         private final String extension;

@@ -91,25 +91,25 @@ public class ImageService {
         for (Path imagePath : loadFilesRefactor()) {
             File file = imagePath.toFile();
 //            if (isImageFile(file)) {
-                String fileName = file.getName();
-                try {
-                    BasicFileAttributes attributes = Files.readAttributes(imagePath, BasicFileAttributes.class);
-                    System.out.println(attributes);
-                    System.out.println("File Name: " + fileName);
-                    System.out.println("Creation Date: " + attributes.creationTime());
-                    System.out.println("Last Modified Date: " + attributes.lastModifiedTime());
-                    System.out.println("Last Access Time: " + attributes.lastAccessTime());
-                    System.out.println("Attribute Size: " + attributes.size());
-                    System.out.println("\n");
-                    DrewMetaDataExtractor.Extract(file);
-                    System.out.println("Total amount of images: " + ++IMAGES_AMOUNT);
+            String fileName = file.getName();
+            try {
+                BasicFileAttributes attributes = Files.readAttributes(imagePath, BasicFileAttributes.class);
+//                    System.out.println(attributes);
+                System.out.println("File Name: " + fileName);
+                System.out.println("Creation Date: " + attributes.creationTime());
+                System.out.println("Last Modified Date: " + attributes.lastModifiedTime());
+                System.out.println("Last Access Time: " + attributes.lastAccessTime());
+                System.out.println("Attribute Size: " + attributes.size());
+                DrewMetaDataExtractor.Extract(file);
+                System.out.println("-------------------------------\n");
+                ++IMAGES_AMOUNT;
 
-                } catch (IOException e) {
-                    System.out.println("Couldn't read file attributes from: " + fileName);
-                }
+            } catch (IOException e) {
+                System.out.println("Couldn't read file attributes from: " + fileName);
+            }
 //            }
-
         }
+        System.out.println("Total amount of images: " + IMAGES_AMOUNT);
     }
 }
 
