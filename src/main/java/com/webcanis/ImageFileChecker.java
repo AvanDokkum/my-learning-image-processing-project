@@ -1,6 +1,7 @@
 package com.webcanis;
 
 import java.io.File;
+import java.util.stream.Stream;
 
 public class ImageFileChecker {
 
@@ -27,25 +28,29 @@ public class ImageFileChecker {
             return extension;
         }
 
-        public static boolean isSupportedExtension(String extension) {
-            for (ImageType type : ImageType.values()) {
-                if (type.getExtension().equalsIgnoreCase(extension)) {
-                    return true;
-                }
-            }
-            return false;
+//        public static boolean isSupportedExtension(String extension) {
+//            for (ImageType type : ImageType.values()) {
+//                if (type.getExtension().equalsIgnoreCase(extension)) {
+//                    return true;
+//                }
+//            }
+//            return false;
+//        }
+
+        public static boolean matches(String fileName) {
+            return Stream.of(values()).anyMatch(ext -> fileName.endsWith(ext.getExtension()));
         }
     }
 
-    public boolean isImageFile(File file) {
-        String fileName = file.getName().toLowerCase();
-        for (ImageType type : ImageType.values()) {
-            if (fileName.endsWith(type.getExtension())) {
-                return true;
-            }
-        }
-        return false;
-    }
+//    public boolean isImageFile(File file) {
+//        String fileName = file.getName().toLowerCase();
+//        for (ImageType type : ImageType.values()) {
+//            if (fileName.endsWith(type.getExtension())) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
 //    //Alternative using the enum static method and stream
 //    public boolean isImageFileAlt(File file) {

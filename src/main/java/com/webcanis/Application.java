@@ -19,13 +19,11 @@ package com.webcanis;
  * : images are copied and sorted on dates.
  * */
 
-import java.sql.SQLOutput;
-
 public class Application {
     public static void main(String[] args){
         ImageService imageService = new ImageService();
         imageService.createOutputFolder();
-        imageService.readImages();
+        imageService.readImagesRefactor();
 
 
 //        //1:locate the images input folder
