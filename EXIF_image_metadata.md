@@ -233,3 +233,29 @@ Images used in medical, research, or astronomy often include **specialized metad
 
 ## **📢 Summary: Is This Absolutely Everything?**
 This is the **most exhaustive list** of metadata fields found in images **across multiple industries**. However, since **metadata is always evolving**, manufacturers and software developers can introduce **new hidden or proprietary fields**.
+
+
+# Dating the images:
+
+The correct **EXIF tag** for the original date the photograph was taken (the true creation date) is:
+
+### **Tag Name:** `DateTimeOriginal`
+- **EXIF Tag ID:** `0x9003`
+- **Description:** The date and time when the photo was originally taken by the camera (not when it was modified or copied).
+
+### **Other Date-Related EXIF Tags:**
+1. **`DateTime` (0x0132)** – Often called "File Change Date," this refers to when the image file was last modified.
+2. **`DateTimeDigitized` (0x9004)** – The date when the image was converted into digital format, e.g., from film to digital.
+3. **`SubSecTimeOriginal` (0x9291)** – If available, this stores milliseconds for more precise timestamps.
+
+### **Example of EXIF Date Metadata**
+When inspecting EXIF metadata, you might see something like this:
+
+```
+DateTimeOriginal: 2024:03:08 15:30:45
+DateTimeDigitized: 2024:03:08 15:30:45
+DateTime: 2025:01:15 12:05:30
+```
+- The first value (`DateTimeOriginal`) is when the photo was actually taken.
+- The second (`DateTimeDigitized`) is when it was converted to digital format.
+- The third (`DateTime`) is when the file was last modified.
