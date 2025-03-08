@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 public class ImageFileChecker {
 
     public enum ImageType {
+//        JSON(".json"), //contains metadata from image with the same name + file type.
         JPG(".jpg"),
         JPEG(".jpeg"),
         PNG(".png"),
