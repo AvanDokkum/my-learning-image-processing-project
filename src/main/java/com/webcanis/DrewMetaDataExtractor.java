@@ -21,9 +21,6 @@ public class DrewMetaDataExtractor {
                 for (Directory directory : metadata.getDirectories()) {
                     for (Tag tag : directory.getTags()) {
                         System.out.println(tag);
-//                        System.out.println(directory.getName());
-//                        System.out.println(tag.getTagName());
-//                        System.out.println(tag.getDescription());
                     }
                 }
             } else {

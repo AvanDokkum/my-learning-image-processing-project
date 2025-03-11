@@ -5,6 +5,8 @@ import java.util.stream.Stream;
 
 public class ImageFileChecker {
 
+    //refactor: remove class and just use the enum
+
     public enum ImageType {
 //        JSON(".json"), //contains metadata from image with the same name + file type.
         JPG(".jpg"),
