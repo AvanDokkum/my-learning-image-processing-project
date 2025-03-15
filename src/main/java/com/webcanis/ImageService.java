@@ -17,7 +17,7 @@ public class ImageService {
     public int IMAGES_AMOUNT = 0;
 
     public Path directoryPath() {
-        return Paths.get("C:\\Users\\desktop\\IdeaProjects\\my-learning-image-processing-project\\src\\main\\resources\\input_images");
+        return Paths.get("C:\\Users\\arjan\\IdeaProjects\\my-learning-image-processing-project\\src\\main\\resources\\input_images");
     }
 
     public void createOutputFolder() {

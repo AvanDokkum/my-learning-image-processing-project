@@ -9,13 +9,15 @@ public class ImageFileChecker {
 
     public enum ImageType {
 //        JSON(".json"), //contains metadata from image with the same name + file type.
+
+//        SVG Image can NOT be read by DrewMetaDataExtractor = Error reading EXIF data: File format could not be determined - null
+//        SVG(".svg"),
         JPG(".jpg"),
         JPEG(".jpeg"),
         PNG(".png"),
         GIF(".gif"),
         BMP(".bmp"),
         WEBP(".webp"),
-        SVG(".svg"),
         TIFF(".tiff"),
         TIF(".TIF"),
         AVIF(".avif"),
