@@ -91,7 +91,10 @@ public class ImageService {
         }
     }
 
-    public void readImagesRefactor() {
+    public List<ImageDynamicObject> readImagesRefactor() {
+
+        List<ImageDynamicObject> imageList = new ArrayList<>();
+
         for (Path imagePath : loadFilesRefactor()) {
             File file = imagePath.toFile();
 //            if (isImageFile(file)) {
@@ -100,7 +103,6 @@ public class ImageService {
 
                 System.out.println("FILES API Metadata:");
                 BasicFileAttributes attributes = Files.readAttributes(imagePath, BasicFileAttributes.class);
-//                    System.out.println(attributes);
                 System.out.println("File Name: " + fileName);
                 System.out.println("Creation Date: " + attributes.creationTime());
                 System.out.println("Last Modified Date: " + attributes.lastModifiedTime());
@@ -110,6 +112,12 @@ public class ImageService {
 
                 DrewMetaDataExtractor.Extract(file);
                 System.out.println("---\n");
+
+                ImageDynamicObject imageMetadata = new ImageDynamicObject();
+                imageMetadata.setField("File Name: ", fileName);
+                imageMetadata.setField("Creation Date: ", attributes.creationTime());
+                imageList.add(imageMetadata);
+
                 ++IMAGES_AMOUNT;
 
             } catch (IOException e) {
@@ -118,6 +126,7 @@ public class ImageService {
 //            }
         }
         System.out.println("Total amount of images: " + IMAGES_AMOUNT);
+        return imageList;
     }
 }
 

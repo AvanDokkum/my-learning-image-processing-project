@@ -25,7 +25,7 @@ public class ImageDynamicObject {
 }
 
 //public static void main(String[] args) {
-//    DynamicObject obj = new DynamicObject();
+//    ImageDynamicObject obj = new ImageDynamicObject();
 //    obj.setField("name", "John Doe");
 //    obj.setField("age", 30);
 //    System.out.println(obj.getField("name")); // Output: John Doe
