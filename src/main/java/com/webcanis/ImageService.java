@@ -17,7 +17,7 @@ public class ImageService {
     public int IMAGES_AMOUNT = 0;
 
     public Path directoryPath() {
-        return Paths.get("C:\\Users\\arjan\\IdeaProjects\\my-learning-image-processing-project\\src\\main\\resources\\input_images");
+        return Paths.get("C:\\Users\\desktop\\IdeaProjects\\my-learning-image-processing-project\\src\\main\\resources\\input_images");
     }
 
     public void createOutputFolder() {
@@ -97,6 +97,8 @@ public class ImageService {
 //            if (isImageFile(file)) {
             String fileName = file.getName();
             try {
+
+                System.out.println("FILES API Metadata:");
                 BasicFileAttributes attributes = Files.readAttributes(imagePath, BasicFileAttributes.class);
 //                    System.out.println(attributes);
                 System.out.println("File Name: " + fileName);
@@ -104,8 +106,10 @@ public class ImageService {
                 System.out.println("Last Modified Date: " + attributes.lastModifiedTime());
                 System.out.println("Last Access Time: " + attributes.lastAccessTime());
                 System.out.println("Attribute Size: " + attributes.size());
+                System.out.println("---");
+
                 DrewMetaDataExtractor.Extract(file);
-                System.out.println("-------------------------------\n");
+                System.out.println("---\n");
                 ++IMAGES_AMOUNT;
 
             } catch (IOException e) {
