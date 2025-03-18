@@ -8,6 +8,7 @@ import com.drew.metadata.Tag;
 import java.io.File;
 
 public class DrewMetaDataExtractor {
+    @Deprecated
     public static void Extract(File imageFile) {
         try {
             // Read metadata

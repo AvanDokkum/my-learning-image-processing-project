@@ -3,7 +3,7 @@ package com.webcanis;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ImageDynamicObject {
+public class ImageMetaData {
     private final Map<String, Object> fields = new HashMap<>();
 
     public void setField(String key, Object value) {

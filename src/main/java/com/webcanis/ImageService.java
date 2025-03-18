@@ -1,5 +1,11 @@
 package com.webcanis;
 
+import com.drew.imaging.ImageMetadataReader;
+import com.drew.imaging.ImageProcessingException;
+import com.drew.metadata.Directory;
+import com.drew.metadata.Metadata;
+import com.drew.metadata.Tag;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -91,9 +97,10 @@ public class ImageService {
         }
     }
 
-    public List<ImageDynamicObject> readImagesRefactor() {
+    @Deprecated
+    public List<ImageMetaData> readImagesRefactor() {
 
-        List<ImageDynamicObject> imageList = new ArrayList<>();
+        List<ImageMetaData> imageList = new ArrayList<>();
 
         for (Path imagePath : loadFilesRefactor()) {
             File file = imagePath.toFile();
@@ -113,7 +120,7 @@ public class ImageService {
                 DrewMetaDataExtractor.Extract(file);
                 System.out.println("---\n");
 
-                ImageDynamicObject imageMetadata = new ImageDynamicObject();
+                ImageMetaData imageMetadata = new ImageMetaData();
                 imageMetadata.setField("File Name: ", fileName);
                 imageMetadata.setField("Creation Date: ", attributes.creationTime());
                 imageList.add(imageMetadata);
@@ -127,6 +134,36 @@ public class ImageService {
         }
         System.out.println("Total amount of images: " + IMAGES_AMOUNT);
         return imageList;
+    }
+
+    public List<ImageMetaData> readMetaData() {
+        List<ImageMetaData> imageMetaDataList = new ArrayList<>();
+        for (Path imagePath : loadFilesRefactor()) {
+            try {
+                BasicFileAttributes attributes = Files.readAttributes(imagePath, BasicFileAttributes.class);
+                ImageMetaData imageMetaData = new ImageMetaData();
+                imageMetaData.setField("Attribute Size", attributes.size());
+                imageMetaData.setField("Attribute Creation Time", attributes.creationTime());
+
+                Metadata exifMetadata = ImageMetadataReader.readMetadata(imagePath.toFile());
+                if (exifMetadata != null && exifMetadata.getDirectories().iterator().hasNext()) {
+                    for (Directory directory : exifMetadata.getDirectories()) {
+                        for (Tag tag : directory.getTags()) {
+                            if (tag.getTagName().equals("User Comment")) {
+                                continue;
+                            }
+                            imageMetaData.setField(tag.getTagName(), tag.getDescription());
+                        }
+                    }
+                }
+                imageMetaDataList.add(imageMetaData);
+
+            } catch (ImageProcessingException | IOException error) {
+                System.out.println("Couldn't read file attributes from: " + imagePath.toFile().getName());
+                error.printStackTrace();
+            }
+        }
+        return imageMetaDataList;
     }
 }
 
