@@ -88,26 +88,20 @@ public class ImageService {
                     System.out.println("\n");
                     DrewMetaDataExtractor.Extract(file);
                     System.out.println("Total amount of images: " + ++IMAGES_AMOUNT);
-
                 } catch (IOException e) {
                     System.out.println("Couldn't read file attributes from: " + fileName);
                 }
             }
-
         }
     }
 
     @Deprecated
     public List<ImageMetaData> readImagesRefactor() {
-
         List<ImageMetaData> imageList = new ArrayList<>();
-
         for (Path imagePath : loadFilesRefactor()) {
             File file = imagePath.toFile();
-//            if (isImageFile(file)) {
             String fileName = file.getName();
             try {
-
                 System.out.println("FILES API Metadata:");
                 BasicFileAttributes attributes = Files.readAttributes(imagePath, BasicFileAttributes.class);
                 System.out.println("File Name: " + fileName);
@@ -116,21 +110,16 @@ public class ImageService {
                 System.out.println("Last Access Time: " + attributes.lastAccessTime());
                 System.out.println("Attribute Size: " + attributes.size());
                 System.out.println("---");
-
                 DrewMetaDataExtractor.Extract(file);
                 System.out.println("---\n");
-
                 ImageMetaData imageMetadata = new ImageMetaData();
                 imageMetadata.setField("File Name: ", fileName);
                 imageMetadata.setField("Creation Date: ", attributes.creationTime());
                 imageList.add(imageMetadata);
-
                 ++IMAGES_AMOUNT;
-
             } catch (IOException e) {
                 System.out.println("Couldn't read file attributes from: " + fileName);
             }
-//            }
         }
         System.out.println("Total amount of images: " + IMAGES_AMOUNT);
         return imageList;
@@ -140,11 +129,14 @@ public class ImageService {
         List<ImageMetaData> imageMetaDataList = new ArrayList<>();
         for (Path imagePath : loadFilesRefactor()) {
             try {
+                //info: Read metadata via Files.readAttributes
                 BasicFileAttributes attributes = Files.readAttributes(imagePath, BasicFileAttributes.class);
                 ImageMetaData imageMetaData = new ImageMetaData();
                 imageMetaData.setField("Attribute Size", attributes.size());
                 imageMetaData.setField("Attribute Creation Time", attributes.creationTime());
+                //question: Add more fields from attributes/Files api?
 
+                //info: Read metadata via DrewMetaDataExtractor
                 Metadata exifMetadata = ImageMetadataReader.readMetadata(imagePath.toFile());
                 if (exifMetadata != null && exifMetadata.getDirectories().iterator().hasNext()) {
                     for (Directory directory : exifMetadata.getDirectories()) {
@@ -156,8 +148,8 @@ public class ImageService {
                         }
                     }
                 }
-                imageMetaDataList.add(imageMetaData);
 
+                imageMetaDataList.add(imageMetaData);
             } catch (ImageProcessingException | IOException error) {
                 System.out.println("Couldn't read file attributes from: " + imagePath.toFile().getName());
                 error.printStackTrace();
