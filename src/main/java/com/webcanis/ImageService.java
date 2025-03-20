@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 
 public class ImageService {
 
-    public int IMAGES_AMOUNT = 0;
+    public static int IMAGES_AMOUNT = 0;
 
     public Path directoryPath() {
         return Paths.get("C:\\Users\\desktop\\IdeaProjects\\my-learning-image-processing-project\\src\\main\\resources\\input_images");
@@ -150,6 +150,8 @@ public class ImageService {
                 }
 
                 imageMetaDataList.add(imageMetaData);
+                ++IMAGES_AMOUNT;
+
             } catch (ImageProcessingException | IOException error) {
                 System.out.println("Couldn't read file attributes from: " + imagePath.toFile().getName());
                 error.printStackTrace();
